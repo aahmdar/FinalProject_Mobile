@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Final Mobile</string>
+    <string name="airing_today">TV Show</string>
+    <string name="popular">Movie</string>
+    <string name="favorite">Favorite</string>
+    <string name="first_air_date">First Air Date</string>
+    <string name="last_air_date">Last Air Date</string>
+    <string name="episode">Episode</string>
+    <string name="season">Season</string>
+    <string name="overview">Overview</string>
+    <string name="rate">Rate</string>
+    <string name="favorite_empty">Favorite list is Empty</string>
+    <string name="search">Search</string>
+    <string name="language">Language</string>
 </resources>
