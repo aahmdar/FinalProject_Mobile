@@ -1,44 +1,44 @@
 package com.aahmdar.finalmobile.data.api.repository;
 
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import com.aahmdar.finalmobile.Consts;
 import com.aahmdar.finalmobile.data.api.Service;
 import com.aahmdar.finalmobile.data.api.repository.callback.OnCallBack;
+import com.aahmdar.finalmobile.data.api.repository.callback.OnCastCallBack;
 import com.aahmdar.finalmobile.data.api.repository.callback.OnDetailCallBack;
 import com.aahmdar.finalmobile.data.api.repository.callback.OnSearchCallBack;
+import com.aahmdar.finalmobile.data.api.repository.Repository;
+import com.aahmdar.finalmobile.data.api.repository.SingleRequest;
+import com.aahmdar.finalmobile.data.models.Cast;
+import com.aahmdar.finalmobile.data.models.CastResponse;
 import com.aahmdar.finalmobile.data.models.Movie;
 import com.aahmdar.finalmobile.data.models.MovieResponse;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MovieRepository {
+public class MovieRepository extends Repository<Movie> {
 
     private MovieRepository(Service service) {
         this.service = service;
     }
 
     private static MovieRepository repository;
-    private Service service;
 
     public static MovieRepository getInstance() {
         if (repository == null) {
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(Consts.BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-            repository = new MovieRepository(retrofit.create(Service.class));
+            Service retrofit = SingleRequest.getInstance();
+            repository = new MovieRepository(retrofit);
         }
         return repository;
     }
 
-    public void getMovie(int page, final OnCallBack<Movie> callback) {
+    public void getModel(int page, final OnCallBack<Movie> callback) {
         service.getMovieResults(Consts.API_KEY, Consts.getLang(), page)
                 .enqueue(new Callback<MovieResponse>() {
                     @Override
@@ -46,7 +46,6 @@ public class MovieRepository {
                         if (response.isSuccessful()) {
                             if (response.body() != null) {
                                 if (response.body().getResults() != null) {
-                                    Log.d("MOVIE REPO", response.body().getResults().get(0).getTitle());
                                     callback.onSuccess(response.body().getPage(), response.body().getResults());
                                 } else {
                                     callback.onFailure("response.body().getResults() is null");
@@ -66,7 +65,7 @@ public class MovieRepository {
                 });
     }
 
-    public void getMovieDetail(int id, final OnDetailCallBack<Movie> callback) {
+    public void getModelDetail(int id, final OnDetailCallBack<Movie> callback) {
         service.getMovieDetail(id, Consts.API_KEY, Consts.getLang())
                 .enqueue(new Callback<Movie>() {
                     @Override
@@ -112,6 +111,33 @@ public class MovieRepository {
 
                     @Override
                     public void onFailure(@NonNull Call<MovieResponse> call, @NonNull Throwable t) {
+                        callback.onFailure(t.getLocalizedMessage());
+                    }
+                });
+    }
+
+    public void getCasts(int movieId, final OnCastCallBack callback) {
+        service.getCasts(movieId, Consts.API_KEY, Consts.getLang())
+                .enqueue(new Callback<CastResponse>() {
+                    @Override
+                    public void onResponse(Call<CastResponse> call, Response<CastResponse> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body() != null) {
+                                if (response.body() != null) {
+                                    callback.onSuccess(response.body().getCastList(), response.message());
+                                } else {
+                                    callback.onFailure("No Casts");
+                                }
+                            } else {
+                                callback.onFailure("response.body() is null");
+                            }
+                        } else {
+                            callback.onFailure(response.message() + " : " + response.code());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<CastResponse> call, Throwable t) {
                         callback.onFailure(t.getLocalizedMessage());
                     }
                 });

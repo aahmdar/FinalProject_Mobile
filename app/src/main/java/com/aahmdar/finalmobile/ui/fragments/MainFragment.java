@@ -1,6 +1,5 @@
 package com.aahmdar.finalmobile.ui.fragments;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -133,7 +132,7 @@ public class MainFragment extends Fragment
         isFetching = true;
         if (query.equals("")) {
 
-            tvRepo.getTvShow(page, new OnCallBack<TvShow>() {
+            tvRepo.getModel(page, new OnCallBack<TvShow>() {
                 public void onSuccess(int page, List<TvShow> tvShowList) {
                     // TODO: hide error text
                     if (adapter == null) {
@@ -177,6 +176,7 @@ public class MainFragment extends Fragment
                 @Override
                 public void onFailure(String msg) {
                     // TODO: show error text
+                    Log.d("Error Fetching", msg);
                 }
             });
         }
@@ -185,7 +185,7 @@ public class MainFragment extends Fragment
     private void getMovieRepositoryData(String query, int page) {
         isFetching = true;
         if (query.equals("")) {
-            movieRepo.getMovie(page, new OnCallBack<Movie>() {
+            movieRepo.getModel(page, new OnCallBack<Movie>() {
                 public void onSuccess(int page, List<Movie> movieList) {
                     // TODO: hide error text
                     if (adapter == null) {
@@ -204,6 +204,7 @@ public class MainFragment extends Fragment
                 @Override
                 public void onFailure(String message) {
                     // TODO: show error text
+                    Log.d("Error Fetching", message);
                 }
             });
         } else {
@@ -227,6 +228,7 @@ public class MainFragment extends Fragment
                 @Override
                 public void onFailure(String msg) {
                     // TODO: show error text
+                    Log.d("Error Fetching", msg);
                 }
             });
         }

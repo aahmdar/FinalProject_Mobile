@@ -2,6 +2,8 @@ package com.aahmdar.finalmobile.ui.activities;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,10 +21,16 @@ import com.aahmdar.finalmobile.ImageSize;
 import com.aahmdar.finalmobile.R;
 import com.aahmdar.finalmobile.data.api.repository.MovieRepository;
 import com.aahmdar.finalmobile.data.api.repository.TvShowRepository;
+import com.aahmdar.finalmobile.ui.adapters.CastAdapter;
+import com.aahmdar.finalmobile.ui.adapters.GenreAdapter;
 import com.aahmdar.finalmobile.data.api.repository.callback.OnDetailCallBack;
+import com.aahmdar.finalmobile.data.api.repository.callback.OnCastCallBack;
 import com.aahmdar.finalmobile.data.models.Movie;
 import com.aahmdar.finalmobile.data.models.TvShow;
+import com.aahmdar.finalmobile.data.models.Cast;
+import com.aahmdar.finalmobile.data.models.Genre;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
@@ -42,6 +50,9 @@ public class DetailActivity extends AppCompatActivity {
     private TextView tvLabelLastAirDate;
     private TextView tvLabelEpisode;
     private TextView tvLabelSeason;
+    private ArrayList<String> genres;
+    RecyclerView rvGenre;
+    RecyclerView rvCast;
     private TvShowRepository tvRepo;
     private MovieRepository movieRepo;
 
@@ -50,7 +61,7 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        Realm.init(this);
+//        Realm.init(this);
 
         ivBackdrop = findViewById(R.id.iv_backdrop);
         ivPoster = findViewById(R.id.iv_poster);
@@ -66,6 +77,9 @@ public class DetailActivity extends AppCompatActivity {
         tvLabelSeason = findViewById(R.id.label_season);
         tvLabelFirstAirDate = findViewById(R.id.label_first_air_date);
         tvLabelLastAirDate = findViewById(R.id.label_last_air_date);
+        genres = new ArrayList<>();
+        rvGenre = findViewById(R.id.rv_genre);
+        rvCast = findViewById(R.id.rv_cast);
         tvRepo = TvShowRepository.getInstance();
         movieRepo = MovieRepository.getInstance();
     }
@@ -120,7 +134,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private void load(Integer id, String selectedFragment) {
         if (selectedFragment.equals("tv_show")) {
-            tvRepo.getTvDetail(id, new OnDetailCallBack<TvShow>() {
+            tvRepo.getModelDetail(id, new OnDetailCallBack<TvShow>() {
                 @Override
                 public void onSuccess(TvShow media, String message) {
                     String imageUri = media.getPosterPath(ImageSize.W154);
@@ -140,6 +154,11 @@ public class DetailActivity extends AppCompatActivity {
                     tvOverview.setText(media.getOverview());
                     tvSeason.setText(Integer.toString(media.getNumberOfSeaon()));
                     rbRating.setRating(rating);
+                    setGenres(media.getGenres());
+                    Log.d("Genre", media.getGenres().get(0).getName());
+                    rvGenre.setLayoutManager(new LinearLayoutManager(DetailActivity.this, RecyclerView.HORIZONTAL, false));
+                    rvGenre.setAdapter(new GenreAdapter(genres, DetailActivity.this));
+                    loadCastData(id, selectedFragment);
                     setActionBar(media.getName());
                 }
 
@@ -149,7 +168,7 @@ public class DetailActivity extends AppCompatActivity {
                 }
             });
         } else {
-            movieRepo.getMovieDetail(id, new OnDetailCallBack<Movie>() {
+            movieRepo.getModelDetail(id, new OnDetailCallBack<Movie>() {
                 @Override
                 public void onSuccess(Movie media, String message) {
                     Log.d("MOVIE TITLE", media.getTitle());
@@ -170,6 +189,11 @@ public class DetailActivity extends AppCompatActivity {
                     tvLabelSeason.setVisibility(View.GONE);
                     tvLabelFirstAirDate.setVisibility(View.GONE);
                     tvLabelLastAirDate.setVisibility(View.GONE);
+                    setGenres(media.getGenres());
+                    Log.d("Genre", media.getGenres().get(0).getName());
+                    rvGenre.setLayoutManager(new LinearLayoutManager(DetailActivity.this, RecyclerView.HORIZONTAL, false));
+                    rvGenre.setAdapter(new GenreAdapter(genres, DetailActivity.this));
+                    loadCastData(id, selectedFragment);
                     setActionBar(media.getTitle());
                 }
 
@@ -189,5 +213,40 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
+    private void setGenres(List<Genre> genresList){
+        for(int i = 0; i< genresList.size(); i++){
+            genres.add(genresList.get(i).getName());
+        }
+    }
 
+    private void loadCastData(int id, String type) {
+        if (type.equals("movie")) {
+            movieRepo.getCasts(id, new OnCastCallBack() {
+                @Override
+                public void onSuccess(List<Cast> castList, String message) {
+                    Log.d("Cast", castList.get(0).getName());
+                    rvCast.setLayoutManager(new LinearLayoutManager(DetailActivity.this, RecyclerView.HORIZONTAL, false));
+                    rvCast.setAdapter(new CastAdapter(castList, DetailActivity.this));
+                }
+
+                @Override
+                public void onFailure(String message) {
+                    Log.d("Error Fetching Cast", message);
+                }
+            });
+        } else {
+            tvRepo.getCasts(id, new OnCastCallBack() {
+                @Override
+                public void onSuccess(List<Cast> castList, String message) {
+                    rvCast.setLayoutManager(new LinearLayoutManager(DetailActivity.this, RecyclerView.HORIZONTAL, false));
+                    rvCast.setAdapter(new CastAdapter(castList, DetailActivity.this));
+                }
+
+                @Override
+                public void onFailure(String message) {
+                    Log.d("Error Fetching Cast", message);
+                }
+            });
+        }
+    }
 }

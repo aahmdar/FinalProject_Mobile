@@ -12,4 +12,5 @@
     <string name="favorite_empty">Favorite list is Empty</string>
     <string name="search">Search</string>
     <string name="language">Language</string>
+    <string name="cast">Casts</string>
 </resources>
