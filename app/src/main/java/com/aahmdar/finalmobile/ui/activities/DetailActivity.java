@@ -270,10 +270,10 @@ public class DetailActivity extends AppCompatActivity {
                     tvName.setText(media.getTitle());
                     tvOverview.setText(media.getOverview());
                     rbRating.setRating(rating);
-                    tvLabelEpisode.setVisibility(View.GONE);
-                    tvLabelSeason.setVisibility(View.GONE);
-                    tvLabelFirstAirDate.setVisibility(View.GONE);
-                    tvLabelLastAirDate.setVisibility(View.GONE);
+                    tvLabelEpisode.setVisibility(View.VISIBLE);
+                    tvLabelSeason.setVisibility(View.VISIBLE);
+                    tvLabelFirstAirDate.setVisibility(View.VISIBLE);
+                    tvLabelLastAirDate.setVisibility(View.VISIBLE);
                     setGenres(media.getGenres());
                     Log.d("Genre", media.getGenres().get(0).getName());
                     rvGenre.setLayoutManager(new LinearLayoutManager(DetailActivity.this, RecyclerView.HORIZONTAL, false));
