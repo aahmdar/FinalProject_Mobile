@@ -20,17 +20,15 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="225dp"
-            android:background="@drawable/fg_backdrop"
             android:contentDescription="@string/app_name" />
 
         <ImageView
             android:id="@+id/iv_poster"
             android:layout_width="133dp"
             android:layout_height="215dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="150dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="120dp"
+            android:layout_marginBottom="8dp"
             android:contentDescription="@string/app_name"
             android:scaleType="centerCrop" />
 
@@ -38,11 +36,12 @@
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/iv_backdrop"
-            android:layout_marginBottom="16dp"
-            android:layout_toRightOf="@id/iv_poster"
+            android:layout_below="@+id/iv_poster"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="12dp"
             android:maxLines="1"
-            android:textColor="@color/white"
+            android:text="judul"
+            android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -50,11 +49,10 @@
             android:id="@+id/label_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/iv_backdrop"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="4dp"
-            android:layout_toRightOf="@id/iv_poster"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:layout_below="@+id/tv_name"
+            android:layout_centerHorizontal="true"
             android:text="@string/rate"
             android:textSize="14sp" />
 
@@ -64,8 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/label_rate"
-            android:layout_marginLeft="15dp"
-            android:layout_toRightOf="@id/iv_poster"
+            android:layout_centerHorizontal="true"
             android:numStars="5"
             android:stepSize="0.1" />
 
@@ -73,20 +70,21 @@
             android:id="@+id/label_first_air_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rb_rating"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_toRightOf="@id/iv_poster"
+            android:layout_below="@+id/rb_rating"
+            android:layout_marginStart="80dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="60dp"
             android:text="@string/first_air_date"
-            android:textSize="14sp" />
+            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/tv_first_air_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/label_first_air_date"
-            android:layout_marginLeft="16dp"
-            android:layout_toRightOf="@id/iv_poster"
+            android:layout_alignStart="@+id/label_first_air_date"
+            android:layout_alignLeft="@+id/label_first_air_date"
+            android:text="@string/first_air_date"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -94,10 +92,11 @@
             android:id="@+id/label_last_air_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rb_rating"
-            android:layout_marginLeft="18dp"
-            android:layout_marginTop="8dp"
-            android:layout_toRightOf="@id/label_first_air_date"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="80dp"
+            android:layout_below="@+id/rb_rating"
+            android:layout_toEndOf="@+id/label_first_air_date"
+            android:layout_toRightOf="@+id/label_first_air_date"
             android:text="@string/last_air_date"
             android:textSize="14sp" />
 
@@ -105,20 +104,21 @@
             android:id="@+id/tv_last_air_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/label_first_air_date"
-            android:layout_marginLeft="25dp"
-            android:layout_toRightOf="@id/tv_first_air_date"
+            android:layout_below="@+id/label_last_air_date"
+            android:layout_alignStart="@+id/label_last_air_date"
+            android:layout_alignLeft="@+id/label_last_air_date"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:text="@string/last_air_date"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/label_season"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_first_air_date"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_toRightOf="@id/iv_poster"
+            android:layout_below="@+id/tv_first_air_date"
+            android:layout_alignStart="@+id/label_first_air_date"
+            android:layout_alignLeft="@+id/label_first_air_date"
+            android:layout_marginTop="10dp"
             android:text="@string/season"
             android:textSize="14sp" />
 
@@ -127,8 +127,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/label_season"
-            android:layout_marginLeft="16dp"
-            android:layout_toRightOf="@id/iv_poster"
+            android:layout_alignStart="@+id/label_season"
+            android:layout_alignLeft="@+id/label_season"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="-1dp"
+            android:text="@string/season"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -136,10 +140,10 @@
             android:id="@+id/label_episode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_last_air_date"
-            android:layout_marginLeft="18dp"
-            android:layout_marginTop="8dp"
-            android:layout_toRightOf="@id/label_first_air_date"
+            android:layout_below="@+id/tv_last_air_date"
+            android:layout_alignStart="@+id/tv_last_air_date"
+            android:layout_alignLeft="@+id/tv_last_air_date"
+            android:layout_marginTop="10dp"
             android:text="@string/episode"
             android:textSize="14sp" />
 
@@ -148,8 +152,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/label_episode"
-            android:layout_marginLeft="25dp"
-            android:layout_toRightOf="@id/tv_first_air_date"
+            android:layout_alignStart="@+id/label_episode"
+            android:layout_alignLeft="@+id/label_episode"
+            android:text="@string/episode"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -157,33 +162,12 @@
             android:id="@+id/rv_genre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/iv_poster"
-            android:translationY="-20dp"
+            android:layout_below="@id/tv_season"
+            android:translationY="-3dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:clipToPadding = "false"
-            tools:listitem="@layout/item_genre_recycler"
-            />
-
-        <TextView
-            android:id="@+id/label_overview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/iv_poster"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="32dp"
-            android:text="@string/overview"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tv_overview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/label_overview"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:textSize="18sp" />
+            tools:listitem="@layout/item_genre_recycler" />
 
         <TextView
             android:id="@+id/tv_cast_header"
@@ -191,20 +175,43 @@
             android:layout_height="wrap_content"
             android:text="@string/cast"
             android:textColor="@color/white"
-            android:layout_marginTop="20dp"
-            android:layout_below="@id/tv_overview"
-            android:textSize="18sp"
+            android:layout_marginTop="2dp"
+            android:layout_below="@id/rv_genre"
+            android:textSize="1sp"
             android:layout_marginLeft="26dp" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_cast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="2dp"
             android:layout_below="@id/tv_cast_header"
-            android:paddingLeft="16dp"
+            android:paddingLeft="10dp"
             android:clipToPadding = "false"
-            tools:listitem="@layout/item_cast_recycler"
-            />
+            tools:listitem="@layout/item_cast_recycler" />
+
+        <TextView
+            android:id="@+id/label_overview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rv_cast"
+            android:layout_alignStart="@+id/rv_genre"
+            android:layout_alignLeft="@+id/rv_genre"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/overview"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_overview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label_overview"
+            android:layout_alignStart="@+id/label_overview"
+            android:layout_alignLeft="@+id/label_overview"
+            android:layout_marginRight="16dp"
+            android:text="@string/overview"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tv_error"
