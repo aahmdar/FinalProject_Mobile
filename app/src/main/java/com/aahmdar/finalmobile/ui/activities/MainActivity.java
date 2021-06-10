@@ -31,17 +31,17 @@ public class MainActivity extends AppCompatActivity
         if (getIntent().getStringExtra("SELECTED_FRAGMENT") != null) {
             switch (getIntent().getStringExtra("SELECTED_FRAGMENT")) {
                 case "tv_show":
-                    bottomNavigationView.setSelectedItemId(R.id.item_airing_today);
+                    bottomNavigationView.setSelectedItemId(R.id.item_tvshow);
                     break;
                 case "movie":
-                    bottomNavigationView.setSelectedItemId(R.id.item_popular);
+                    bottomNavigationView.setSelectedItemId(R.id.item_movie);
                     break;
                 case "favorite":
                     bottomNavigationView.setSelectedItemId(R.id.item_favorite);
                     break;
             }
         } else {
-            bottomNavigationView.setSelectedItemId(R.id.item_airing_today);
+            bottomNavigationView.setSelectedItemId(R.id.item_tvshow);
         }
     }
 
@@ -50,13 +50,13 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = null;
         String sortBy = null;
         switch (menuItem.getItemId()) {
-            case R.id.item_airing_today:
-                setActionBar(getString(R.string.airing_today), R.drawable.ic_airing_today_white);
+            case R.id.item_tvshow:
+                setActionBar(getString(R.string.tvshow), R.drawable.ic_tvshow);
                 sortBy = "tv_show";;
                 fragment = new MainFragment();
                 break;
-            case R.id.item_popular:
-                setActionBar(getString(R.string.popular), R.drawable.ic_popular_white);
+            case R.id.item_movie:
+                setActionBar(getString(R.string.movie), R.drawable.ic_movie);
                 // TODO: pass filter
                 sortBy = "movie";
                 fragment = new MainFragment();

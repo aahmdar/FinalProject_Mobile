@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Final Mobile</string>
-    <string name="airing_today">TV Show</string>
-    <string name="popular">Movie</string>
+    <string name="tvshow">TV Show</string>
+    <string name="movie">Movie</string>
     <string name="favorite">Favorite</string>
     <string name="first_air_date">First Air Date</string>
     <string name="last_air_date">Last Air Date</string>
