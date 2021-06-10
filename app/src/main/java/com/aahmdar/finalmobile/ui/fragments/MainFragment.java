@@ -24,12 +24,15 @@ import android.widget.TextView;
 import java.util.List;
 
 import com.aahmdar.finalmobile.R;
+import com.aahmdar.finalmobile.ImageSize;
 import com.aahmdar.finalmobile.data.api.repository.MovieRepository;
 import com.aahmdar.finalmobile.data.api.repository.TvShowRepository;
 import com.aahmdar.finalmobile.data.api.repository.callback.OnCallBack;
 import com.aahmdar.finalmobile.data.api.repository.callback.OnSearchCallBack;
 import com.aahmdar.finalmobile.data.models.Movie;
 import com.aahmdar.finalmobile.data.models.TvShow;
+import com.aahmdar.finalmobile.data.local.FavoriteMovie;
+import com.aahmdar.finalmobile.data.local.FavoriteTv;
 import com.aahmdar.finalmobile.ui.activities.DetailActivity;
 import com.aahmdar.finalmobile.ui.adapters.MainAdapter;
 import com.aahmdar.finalmobile.ui.adapters.clicklistener.OnItemClickListener;
@@ -135,6 +138,7 @@ public class MainFragment extends Fragment
             tvRepo.getModel(page, new OnCallBack<TvShow>() {
                 public void onSuccess(int page, List<TvShow> tvShowList) {
                     // TODO: hide error text
+                    tvError.setVisibility(View.GONE);
                     if (adapter == null) {
                         Log.d("Debugging", "adapter:null");
                         adapter = new MainAdapter(tvShowList, null);
@@ -153,6 +157,8 @@ public class MainFragment extends Fragment
                 public void onFailure(String message) {
                     // TODO: show error text
                     Log.d("Error Fetching", message);
+                    tvError.setText(R.string.error);
+                    tvError.setVisibility(View.VISIBLE);
                 }
             });
         } else {
@@ -160,6 +166,7 @@ public class MainFragment extends Fragment
                 @Override
                 public void onSuccess(List<TvShow> tvShowList, String msg, int page) {
                     // TODO: hide error text
+                    tvError.setVisibility(View.GONE);
                     if (adapter == null) {
                         adapter = new MainAdapter(tvShowList, null);
                         adapter.setClickListener(MainFragment.this);
@@ -177,6 +184,8 @@ public class MainFragment extends Fragment
                 public void onFailure(String msg) {
                     // TODO: show error text
                     Log.d("Error Fetching", msg);
+                    tvError.setText(R.string.error);
+                    tvError.setVisibility(View.VISIBLE);
                 }
             });
         }
@@ -188,6 +197,7 @@ public class MainFragment extends Fragment
             movieRepo.getModel(page, new OnCallBack<Movie>() {
                 public void onSuccess(int page, List<Movie> movieList) {
                     // TODO: hide error text
+                    tvError.setVisibility(View.GONE);
                     if (adapter == null) {
                         adapter = new MainAdapter(null, movieList);
                         adapter.setClickListener(MainFragment.this);
@@ -205,6 +215,8 @@ public class MainFragment extends Fragment
                 public void onFailure(String message) {
                     // TODO: show error text
                     Log.d("Error Fetching", message);
+                    tvError.setText(R.string.error);
+                    tvError.setVisibility(View.VISIBLE);
                 }
             });
         } else {
@@ -212,6 +224,7 @@ public class MainFragment extends Fragment
                 @Override
                 public void onSuccess(List<Movie> movieList, String msg, int page) {
                     // TODO: hide error text
+                    tvError.setVisibility(View.GONE);
                     if (adapter == null) {
                         adapter = new MainAdapter(null, movieList);
                         adapter.setClickListener(MainFragment.this);
@@ -229,6 +242,8 @@ public class MainFragment extends Fragment
                 public void onFailure(String msg) {
                     // TODO: show error text
                     Log.d("Error Fetching", msg);
+                    tvError.setText(R.string.error);
+                    tvError.setVisibility(View.VISIBLE);
                 }
             });
         }
@@ -246,6 +261,8 @@ public class MainFragment extends Fragment
         Intent detailActivity = new Intent(getContext(), DetailActivity.class);
         detailActivity.putExtra("ID", tvShow.getId());
         detailActivity.putExtra("SELECTED_FRAGMENT", getBundle());
+        detailActivity.putExtra("TITLE", tvShow.getName());
+        detailActivity.putExtra("POSTER_PATH", tvShow.getPosterPath(ImageSize.W154));
         startActivity(detailActivity);
     }
 
@@ -253,8 +270,18 @@ public class MainFragment extends Fragment
     public void onClick(Movie movie) {
         Intent detailActivity = new Intent(getContext(), DetailActivity.class);
         detailActivity.putExtra("ID", movie.getId());
+        detailActivity.putExtra("TITLE", movie.getTitle());
+        detailActivity.putExtra("POSTER_PATH", movie.getPosterPath(ImageSize.W154));
         detailActivity.putExtra("SELECTED_FRAGMENT", getBundle());
         startActivity(detailActivity);
+    }
+
+    @Override
+    public void onClick(FavoriteMovie movie) {}
+
+    @Override
+    public void onClick(FavoriteTv tv) {
+
     }
 
     @Override

@@ -10,7 +10,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.aahmdar.finalmobile.R;
-//import com.aahmdar.finalmobile.UI.fragments.FavoriteFragment;
+import com.aahmdar.finalmobile.ui.fragments.FavoriteFragment;
 import com.aahmdar.finalmobile.ui.fragments.MainFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -61,10 +61,10 @@ public class MainActivity extends AppCompatActivity
                 sortBy = "movie";
                 fragment = new MainFragment();
                 break;
-//            case R.id.item_favorite:
-//                setActionBar(getString(R.string.favorite), R.drawable.ic_favorite_white);
-//                fragment = new FavoriteFragment();
-//                break;
+            case R.id.item_favorite:
+                setActionBar(getString(R.string.favorite), R.drawable.ic_favorite_white);
+                fragment = new FavoriteFragment();
+                break;
         }
         if (fragment != null) {
             // Method that handle which data to show base on @sortBy params

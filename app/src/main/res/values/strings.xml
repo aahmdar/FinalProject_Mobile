@@ -13,4 +13,6 @@
     <string name="search">Search</string>
     <string name="language">Language</string>
     <string name="cast">Casts</string>
+    <string name="error">Failed to Fetch Data</string>
+    <string name="no_favorite">No Favorites</string>
 </resources>
