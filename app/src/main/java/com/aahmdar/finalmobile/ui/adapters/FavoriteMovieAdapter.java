@@ -64,7 +64,7 @@ public class FavoriteMovieAdapter extends RecyclerView.Adapter<com.aahmdar.final
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivPoster = itemView.findViewById(R.id.iv_poster);
-            tvName = itemView.findViewById(R.id.tv_title);
+//            tvName = itemView.findViewById(R.id.tv_title);
             itemView.setOnClickListener(this);
         }
 
@@ -76,7 +76,7 @@ public class FavoriteMovieAdapter extends RecyclerView.Adapter<com.aahmdar.final
             Glide.with(itemView.getContext())
                     .load(imageUri)
                     .into(ivPoster);
-            tvName.setText(title);
+//            tvName.setText(title);
         }
 
         @Override

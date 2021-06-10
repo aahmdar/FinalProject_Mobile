@@ -52,12 +52,12 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         Favorite favorite;
         ImageView ivPoster;
-        TextView tvName;
+//        TextView tvName;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivPoster = itemView.findViewById(R.id.iv_poster);
-            tvName = itemView.findViewById(R.id.tv_name);
+//            tvName = itemView.findViewById(R.id.tv_name);
             itemView.setOnClickListener(this);
         }
 
@@ -66,7 +66,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             Glide.with(itemView.getContext())
                     .load(favorite.getPosterPath())
                     .into(ivPoster);
-            tvName.setText(favorite.getName());
+//            tvName.setText(favorite.getName());
         }
 
         @Override

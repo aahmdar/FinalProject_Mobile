@@ -13,10 +13,9 @@
         android:text="Action"
         android:paddingHorizontal="10dp"
         android:paddingVertical="4dp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/background_genre"
-        />
+        android:background="@drawable/background_genre"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
