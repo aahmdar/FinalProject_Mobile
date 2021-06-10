@@ -294,7 +294,6 @@ public class MainFragment extends Fragment
         } else {
             getMovieRepositoryData("", movieCurPage);
         }
-
     }
 
     @Override

@@ -17,9 +17,7 @@ import com.aahmdar.finalmobile.ui.adapters.ViewPagerAdapter;
 public class FavoriteFragment extends Fragment {
 
     public FavoriteFragment() {
-        // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,7 +51,6 @@ public class FavoriteFragment extends Fragment {
 //                    bundle.putString("SORT_BY", "tv_show");
 //                    fragment.setArguments(bundle);
 //                }
-
             }
 
             @Override

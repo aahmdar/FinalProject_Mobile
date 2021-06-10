@@ -56,7 +56,6 @@ public class Movie {
         return Consts.IMG_URL + size.getValue() + posterPath;
     }
 
-
     public int getId() {
         return id;
     }

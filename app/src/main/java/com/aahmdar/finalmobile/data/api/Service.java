@@ -4,7 +4,6 @@ import com.aahmdar.finalmobile.data.models.Movie;
 import com.aahmdar.finalmobile.data.models.MovieResponse;
 import com.aahmdar.finalmobile.data.models.TvShow;
 import com.aahmdar.finalmobile.data.models.TvShowResponse;
-import com.aahmdar.finalmobile.data.models.Cast;
 import com.aahmdar.finalmobile.data.models.CastResponse;
 
 import retrofit2.Call;

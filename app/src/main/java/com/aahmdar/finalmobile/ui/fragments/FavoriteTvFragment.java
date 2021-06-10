@@ -61,9 +61,7 @@ public class FavoriteTvFragment extends Fragment implements OnItemClickListener 
             tvError.setVisibility(View.VISIBLE);
             tvError.setText(R.string.no_favorite);
         } else {
-//            Log.d("Favorite Movies", favoriteTvs.get(0).getTitle());
             adapter = new FavoriteTvAdapter(favoriteTvs);
-//            Log.d("Adapter", adapter.toString());
             adapter.setClickListener(com.aahmdar.finalmobile.ui.fragments.FavoriteTvFragment.this);
             adapter.notifyDataSetChanged();
             recyclerView.setAdapter(adapter);
@@ -88,7 +86,6 @@ public class FavoriteTvFragment extends Fragment implements OnItemClickListener 
             recyclerView.setAdapter(adapter);
             tvError.setVisibility(View.GONE);
         }
-
     }
 
     @Override

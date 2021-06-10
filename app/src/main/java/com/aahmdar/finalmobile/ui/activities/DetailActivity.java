@@ -39,7 +39,6 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmQuery;
-import io.realm.RealmResults;
 
 public class DetailActivity extends AppCompatActivity {
     private ImageView ivBackdrop;
@@ -61,7 +60,6 @@ public class DetailActivity extends AppCompatActivity {
     private MovieRepository movieRepo;
     private RecyclerView rvGenre;
     private RecyclerView rvCast;
-    //    private FavoriteHelper dbService;
     private Realm backgroundThreadRealm;
 
 
@@ -69,7 +67,6 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-//        Realm.init(this);
 
         Realm.init(DetailActivity.this);
 
@@ -122,6 +119,7 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.action_bar_detail_activity, menu);
+
         // TODO: switch favourite button state
         String selectedFragment = getIntent().getStringExtra("SELECTED_FRAGMENT");
         if (selectedFragment.equals("movie")) {
@@ -152,6 +150,7 @@ public class DetailActivity extends AppCompatActivity {
                     FavoriteMovie favMovie = filterFavMovieById(getIntent().getIntExtra("ID", 0));
 
                     if (favMovie != null) {
+
                         // TODO: delete favMovie here
                         backgroundThreadRealm.executeTransaction(transactionRealm -> {
                             favMovie.deleteFromRealm();
@@ -167,15 +166,13 @@ public class DetailActivity extends AppCompatActivity {
                         movie.setPosterPath(posterPath);
 
                         backgroundThreadRealm.executeTransaction (transactionRealm -> transactionRealm.insert(movie));
-//                    dbService.insertMovie(title, posterPath, id);
-                        Log.d("Favorite Movie", movie.getTitle());
                         item.setIcon(R.drawable.ic_favorite_checked);
-
                     }
                 } else {
                     FavoriteTv favTv = filterFavTvById(getIntent().getIntExtra("ID", 0));
 
                     if (favTv != null) {
+
                         // TODO: delete favMovie here
                         backgroundThreadRealm.executeTransaction(transactionRealm -> {
                             favTv.deleteFromRealm();
@@ -191,8 +188,6 @@ public class DetailActivity extends AppCompatActivity {
                         tv.setPosterPath(posterPath);
 
                         backgroundThreadRealm.executeTransaction (transactionRealm -> transactionRealm.insert(tv));
-//                    dbService.insertMovie(title, posterPath, id);
-                        Log.d("Favorite Movie", tv.getTitle());
                         item.setIcon(R.drawable.ic_favorite_checked);
                     }
                 }
@@ -208,14 +203,9 @@ public class DetailActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         Integer id = getIntent().getIntExtra("ID", 0);
-        Log.d("MEDIA ID", id.toString());
         String selectedFragment = getIntent().getStringExtra("SELECTED_FRAGMENT");
-        Log.d("SELECTED FRAGMENT", selectedFragment);
-
         load(id, selectedFragment);
     }
-
-
 
     private void load(Integer id, String selectedFragment) {
         if (selectedFragment.equals("tv_show")) {
@@ -225,7 +215,6 @@ public class DetailActivity extends AppCompatActivity {
                     String imageUri = media.getPosterPath(ImageSize.W154);
                     String backdropUri = media.getBackdropPath(ImageSize.W200);
                     float rating = (float) (media.getVoteAverage() / 2.0);
-                    Log.d("RATING", Float.toString(rating));
                     Glide.with(DetailActivity.this)
                             .load(imageUri)
                             .into(ivPoster);
@@ -240,7 +229,6 @@ public class DetailActivity extends AppCompatActivity {
                     tvSeason.setText(Integer.toString(media.getNumberOfSeaon()));
                     rbRating.setRating(rating);
                     setGenres(media.getGenres());
-                    Log.d("Genre", media.getGenres().get(0).getName());
                     rvGenre.setLayoutManager(new LinearLayoutManager(DetailActivity.this, RecyclerView.HORIZONTAL, false));
                     rvGenre.setAdapter(new GenreAdapter(genres, DetailActivity.this));
                     loadCastData(id, selectedFragment);
@@ -256,11 +244,9 @@ public class DetailActivity extends AppCompatActivity {
             movieRepo.getModelDetail(id, new OnDetailCallBack<Movie>() {
                 @Override
                 public void onSuccess(Movie media, String message) {
-                    Log.d("MOVIE TITLE", media.getTitle());
                     String imageUri = media.getPosterPath(ImageSize.W154);
                     String backdropUri = media.getBackdropPath(ImageSize.W200);
                     float rating = (float) (media.getVoteAverage() / 2.0);
-                    Log.d("RATING", Float.toString(rating));
                     Glide.with(DetailActivity.this)
                             .load(imageUri)
                             .into(ivPoster);
@@ -275,7 +261,6 @@ public class DetailActivity extends AppCompatActivity {
                     tvLabelFirstAirDate.setVisibility(View.VISIBLE);
                     tvLabelLastAirDate.setVisibility(View.VISIBLE);
                     setGenres(media.getGenres());
-                    Log.d("Genre", media.getGenres().get(0).getName());
                     rvGenre.setLayoutManager(new LinearLayoutManager(DetailActivity.this, RecyclerView.HORIZONTAL, false));
                     rvGenre.setAdapter(new GenreAdapter(genres, DetailActivity.this));
                     loadCastData(id, selectedFragment);
@@ -309,7 +294,6 @@ public class DetailActivity extends AppCompatActivity {
             movieRepo.getCasts(id, new OnCastCallBack() {
                 @Override
                 public void onSuccess(List<Cast> castList, String message) {
-                    Log.d("Cast", castList.get(0).getName());
                     rvCast.setLayoutManager(new LinearLayoutManager(DetailActivity.this, RecyclerView.HORIZONTAL, false));
                     rvCast.setAdapter(new CastAdapter(castList, DetailActivity.this));
                 }

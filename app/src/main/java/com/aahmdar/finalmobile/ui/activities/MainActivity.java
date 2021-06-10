@@ -23,9 +23,7 @@ public class MainActivity extends AppCompatActivity
         BottomNavigationView botNav = findViewById(R.id.bnv_main);
         botNav.setOnNavigationItemSelectedListener(this);
         setSelectedItem(botNav);
-
     }
-
 
     private void setSelectedItem(BottomNavigationView bottomNavigationView) {
         if (getIntent().getStringExtra("SELECTED_FRAGMENT") != null) {

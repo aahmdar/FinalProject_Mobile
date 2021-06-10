@@ -69,12 +69,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         TvShow tvShow;
         Movie movie;
         ImageView ivPoster;
-//        TextView tvName;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivPoster = itemView.findViewById(R.id.iv_poster);
-//            tvName = itemView.findViewById(R.id.tv_name);
             itemView.setOnClickListener(this);
         }
 
@@ -85,7 +83,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
             Glide.with(itemView.getContext())
                     .load(imageUri)
                     .into(ivPoster);
-//            tvName.setText(title);
         }
 
         void onBindItemView(Movie movie) {
@@ -95,7 +92,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
             Glide.with(itemView.getContext())
                     .load(imageUri)
                     .into(ivPoster);
-//            tvName.setText(title);
         }
 
         @Override

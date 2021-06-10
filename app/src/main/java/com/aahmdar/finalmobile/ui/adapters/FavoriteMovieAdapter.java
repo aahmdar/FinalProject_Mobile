@@ -42,15 +42,6 @@ public class FavoriteMovieAdapter extends RecyclerView.Adapter<com.aahmdar.final
         viewHolder.onBindItemView(movieList.get(i));
     }
 
-//    public void appendList(List<TvShow> tvShowListToAppend, List<Movie> movieListToAppend) {
-//        if (tvShowListToAppend != null) {
-//            tvShowList.addAll(tvShowListToAppend);
-//        } else {
-//            movieList.addAll(movieListToAppend);
-//        }
-//        notifyDataSetChanged();
-//    }
-
     @Override
     public int getItemCount() {
         return movieList.size();
@@ -64,7 +55,6 @@ public class FavoriteMovieAdapter extends RecyclerView.Adapter<com.aahmdar.final
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivPoster = itemView.findViewById(R.id.iv_poster);
-//            tvName = itemView.findViewById(R.id.tv_title);
             itemView.setOnClickListener(this);
         }
 
@@ -76,7 +66,6 @@ public class FavoriteMovieAdapter extends RecyclerView.Adapter<com.aahmdar.final
             Glide.with(itemView.getContext())
                     .load(imageUri)
                     .into(ivPoster);
-//            tvName.setText(title);
         }
 
         @Override
